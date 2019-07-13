@@ -11,7 +11,7 @@ class App extends Component {
 			<Router>
 				<div>
 					<Navbar />
-					<div class="container" id="panel_container">
+					<div className="container" id="panel_container">
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route path='/post' component={Post} />

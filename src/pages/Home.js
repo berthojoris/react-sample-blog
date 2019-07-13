@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter, Link } from "react-router-dom";
  
 class Home extends Component {
+	componentDidMount() {
+		console.log("YEAY");
+	}
 	render() {
 		return (
 			<div className="row">
