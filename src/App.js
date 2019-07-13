@@ -4,6 +4,7 @@ import Navbar from "./routes/Navbar";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import PasswordGenerator from "./pages/PasswordGenerator";
+import PostDetail from "./pages/PostDetail";
 
 class App extends Component {
 	render() {
@@ -14,8 +15,9 @@ class App extends Component {
 					<div className="container" id="panel_container">
 						<Switch>
 							<Route exact path='/' component={Home} />
-							<Route path='/post' component={Post} />
-							<Route path='/password' component={PasswordGenerator} />
+							<Route exact path='/post' component={Post} />
+							<Route exact path='/password' component={PasswordGenerator} />
+							<Route exact path="/post/:id/:slug" component={PostDetail}/>
 						</Switch>
 					</div>
 				</div>

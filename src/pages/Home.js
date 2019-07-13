@@ -1,52 +1,34 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
- 
+import { Link } from "react-router-dom";
+import PostData from "./../data/data.json";
+import slugify from "slugify";
 class Home extends Component {
-	componentDidMount() {
-		console.log("YEAY");
-	}
+
 	render() {
 		return (
 			<div className="row">
-				<div className="col-md-4 mt-5">
-					<div className="card h-100">
-						<div className="card-body">
-							<h2 className="card-title">Home</h2>
-							<p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-						</div>
-						<div className="card-footer">
-							<BrowserRouter>
-								<Link className="btn btn-primary btn-sm" to="/">More Info</Link>
-							</BrowserRouter>
-						</div>
-					</div>
-				</div>
-				<div className="col-md-4 mt-5">
-					<div className="card h-100">
-						<div className="card-body">
-							<h2 className="card-title">Home</h2>
-							<p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-						</div>
-						<div className="card-footer">
-							<BrowserRouter>
-								<Link className="btn btn-primary btn-sm" to="/">More Info</Link>
-							</BrowserRouter>
+				{PostData.map((postDetail, index) => {
+					const slug = slugify(postDetail.title, '-');
+					const openDetailPage = { 
+						pathname: "/post/"+postDetail.id+"/"+slug,
+						id: postDetail.id,
+						title: postDetail.title,
+						body: postDetail.body,
+						author: postDetail.author
+					};
+					return <div className="col-md-4 mt-5" key={postDetail.id}>
+						<div className="card h-100">
+							<div className="card-body">
+								<h2 className="card-title">{postDetail.title}</h2>
+								<p className="card-text">{postDetail.body}</p>
+								<span className="text-center">{postDetail.author}</span>
+							</div>
+							<div className="card-footer">
+								<Link className="btn btn-primary btn-sm" to={openDetailPage}>Detail</Link>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className="col-md-4 mt-5">
-					<div className="card h-100">
-						<div className="card-body">
-							<h2 className="card-title">Home</h2>
-							<p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-						</div>
-						<div className="card-footer">
-							<BrowserRouter>
-								<Link className="btn btn-primary btn-sm" to="/">More Info</Link>
-							</BrowserRouter>
-						</div>
-					</div>
-				</div>
+				})}
 			</div>
 		);
 	}

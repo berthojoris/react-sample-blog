@@ -1,3 +1,6 @@
 .bg-react {
     background-color: #00D8FF !important;
 }
+.h2, h2 {
+    font-size: 1.5rem;
+}
