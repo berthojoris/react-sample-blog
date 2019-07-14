@@ -3,14 +3,11 @@ import _ from "lodash";
 import PostData from "./../data/data.json";
 class PostDetail extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			id: null,
-			title: null,
-			body: null,
-			author: null
-		};
+	state = {
+		id: null,
+		title: null,
+		body: null,
+		author: null
 	}
 
 	stateDefault() {
@@ -22,21 +19,28 @@ class PostDetail extends Component {
 		});
 	}
 
+	stateUpdate(data) {
+		this.setState({ 
+			id: data.id,
+			title: data.title,
+			body: data.body,
+			author: data.author
+		});
+	}
+
 	componentDidMount() {
-		if(_.isEmpty(this.props.location.title)) {
+		let payload = parseInt(this.props.match.params.id);
+		let findOne = _.find(PostData, {id: payload});
+
+		if(_.isEmpty(findOne)) {
+			this.props.history.push('/')
+		} else {
 			this.stateDefault();
-			let payload = this.props.match.params.id;
-			let findOne = _.find(PostData, {id: payload});
 			if(_.isEmpty(findOne)) {
 				alert("Data not found")
 				this.props.history.push('/')
 			} else {
-				this.setState({ 
-					id: payload,
-					title: findOne.title,
-					body: findOne.body,
-					author: findOne.author
-				});
+				this.stateUpdate(findOne);
 			}
 		}
 	}
@@ -47,8 +51,8 @@ class PostDetail extends Component {
 				<div className="col-md-12 mt-5">
 					<div className="card h-100">
 						<div className="card-body">
-							<h2 className="card-title">{this.props.location.title}</h2>
-							<p className="card-text">{this.props.location.body}</p>
+							<h2 className="card-title">{this.state.title}</h2>
+							<p className="card-text">{this.state.body}</p>
 						</div>
 					</div>
 				</div>

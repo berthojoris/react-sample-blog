@@ -11,10 +11,7 @@ class Home extends Component {
 					const slug = slugify(postDetail.title, '-');
 					const openDetailPage = { 
 						pathname: "/post/"+postDetail.id+"/"+slug,
-						id: postDetail.id,
-						title: postDetail.title,
-						body: postDetail.body,
-						author: postDetail.author
+						id: postDetail.id
 					};
 					return <div className="col-md-4 mt-5" key={postDetail.id}>
 						<div className="card h-100">
