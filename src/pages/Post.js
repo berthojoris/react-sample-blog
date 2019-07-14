@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SimpleReactValidator from 'simple-react-validator';
+import _ from "lodash";
 class Post extends Component {
 
 	constructor (props) {
@@ -8,8 +9,34 @@ class Post extends Component {
 		this.state = {
 			title: "",
 			body: "",
-			author: ""
+			author: "",
+			currentPostData: []
 		}
+	}
+
+	componentDidMount() {
+		// let autoIncrement = 0;
+		// var _this = this;
+		const localDB = localStorage.getItem('post');
+		const lastData = _.last(localDB);
+		console.log(lastData);
+		// if(!_.isEmpty(localDB)) {
+		// 	const lastData = _.last(JSON.stringify(localDB));
+		// 	autoIncrement = parseInt(lastData.id + 1);
+		// } else {
+		// 	autoIncrement = 1;
+		// }
+		// console.log(autoIncrement);
+		// _.forEach(PostData, function(value) {
+		// 	_this.state.currentPostData.push([1, 2, 3]);
+		// 	var dataToAppend = {
+		// 		author: "Test author", 
+		// 		id: 111, 
+		// 		title: "Test Title",
+		// 		body: "Test Body"
+		// 	};
+		// });
+		// console.log(this.state.currentPostData);
 	}
 
 	submitForm() {

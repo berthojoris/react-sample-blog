@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import PostData from "./../data/data.json";
+import Dexie from "dexie";
 class PostDetail extends Component {
 
 	constructor (props) {
@@ -10,15 +10,6 @@ class PostDetail extends Component {
 			body: "",
 			author: ""
 		}
-	}
-
-	stateDefault() {
-		this.setState({ 
-			id: null,
-			title: null,
-			body: null,
-			author: null
-		});
 	}
 
 	stateUpdate(data) {
@@ -31,20 +22,26 @@ class PostDetail extends Component {
 	}
 
 	componentDidMount() {
-		let payload = parseInt(this.props.match.params.id);
-		let findOne = _.find(PostData, {id: payload});
+		const payload = parseInt(this.props.match.params.id);
+		
+		var db = new Dexie("BlogDatabase");
+		db.version(1).stores({
+			blogs: "++id,title,body,author,slugtitle"
+		});
 
-		if(_.isEmpty(findOne)) {
-			this.props.history.push('/')
-		} else {
-			this.stateDefault();
-			if(_.isEmpty(findOne)) {
-				alert("Data not found")
+		db.blogs.where('id').equals(payload).first((result) => {
+			if(_.isEmpty(result)) {
+				alert("Data Not Found");
 				this.props.history.push('/')
 			} else {
-				this.stateUpdate(findOne);
+				this.setState({
+					id: result.id,
+					title: result.title,
+					body: result.body,
+					author: result.author
+				})
 			}
-		}
+		});
 	}
 
 	render() {
