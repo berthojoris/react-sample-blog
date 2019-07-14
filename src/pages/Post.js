@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SimpleReactValidator from 'simple-react-validator';
 import Dexie from "dexie";
+import slugify from "slugify";
 class Post extends Component {
 
 	constructor (props) {
@@ -13,20 +14,19 @@ class Post extends Component {
 		}
 	}
 
-	componentDidMount() {
-		var db = new Dexie("BlogDatabase");
-		db.version(1).stores({
-			blogs: "++id,title,body,author,slugtitle"
-		});
-
-		db.blogs.orderBy('id').last().then(function (results) {
-			console.log (results);
-		});
-	}
-
 	submitForm() {
+		var db = new Dexie("BlogDatabase");
+		db.version(1).stores({blogs: "++id,title,body,author,slugtitle"});
 		if ( this.validator.allValid() ) {
-			alert('You submitted the form and stuff!');
+			const slug = slugify(this.state.title, '-');
+			db.blogs.add({
+				title: this.state.title,
+				body: this.state.body,
+				author: this.state.author,
+				slugtitle: slug,
+			});
+			alert("Data saved");
+			this.props.history.push('/')
 		} else {
 			this.validator.showMessages();
 			this.forceUpdate();

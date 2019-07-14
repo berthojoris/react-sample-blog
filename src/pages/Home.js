@@ -3,6 +3,7 @@ import PostData from "./../data/data.json";
 import slugify from "slugify";
 import Dexie from "dexie";
 import Blog from "./../components/Blog";
+import _ from "lodash";
 
 class Home extends Component {
 
@@ -11,36 +12,55 @@ class Home extends Component {
 		this.state = {
 			blogdata: [],
 			isLoaded: true,
-			totalData: ''
+			totalData: 0
 		}
 	}
 
 	componentDidMount() {
 		var db = new Dexie("BlogDatabase");
-		db.version(1).stores({
-			blogs: "++id,title,body,author,slugtitle"
-		});
+		db.version(1).stores({blogs: "++id,title,body,author,slugtitle"});
+
 		db.blogs.toCollection().count((totaldata) => {
-			this.setState({
-				totalData: totaldata
-			});
-		});
-	
-		if(parseInt(this.state.totalData) > 0) {
-			db.blogs.toArray((result) => {
-				this.setState({
-					isLoaded: false,
-					totalData: this.state.totalData,
-					blogdata: result
+
+			if(parseInt(totaldata) === 0) {
+				_.forEach(PostData, function(value) {
+					db.blogs.add({
+						title: value.title,
+						body: value.body,
+						author: value.author,
+						slugtitle: slugify(value.title, '-')
+					});
 				});
-			});
-		} else {
-			this.setState({
-				isLoaded: false,
-				totalData: this.state.totalData,
-				blogdata: PostData
-			});
-		}
+
+				db.blogs.toArray((result) => {
+					this.setState({
+						isLoaded: false,
+						totalData: this.state.totalData,
+						blogdata: result
+					});
+				});
+			} else {
+				this.setState({
+					totalData: totaldata
+				});
+
+				if(parseInt(this.state.totalData) > 0) {
+					db.blogs.toArray((result) => {
+						this.setState({
+							isLoaded: false,
+							totalData: this.state.totalData,
+							blogdata: result
+						});
+					});
+				} else {
+					this.setState({
+						isLoaded: false,
+						totalData: this.state.totalData,
+						blogdata: PostData
+					});
+				}
+			}
+		});
 	}
 
 	render() {
