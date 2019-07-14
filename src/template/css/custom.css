@@ -4,3 +4,9 @@
 .h2, h2 {
     font-size: 1.5rem;
 }
+.errorMsg {
+    color: #FF0000;
+}
+.srv-validation-message {
+    color: #FF0000;
+}

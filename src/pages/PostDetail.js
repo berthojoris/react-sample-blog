@@ -3,11 +3,13 @@ import _ from "lodash";
 import PostData from "./../data/data.json";
 class PostDetail extends Component {
 
-	state = {
-		id: null,
-		title: null,
-		body: null,
-		author: null
+	constructor (props) {
+		super(props);
+		this.state = {
+			title: "",
+			body: "",
+			author: ""
+		}
 	}
 
 	stateDefault() {
