@@ -2,7 +2,9 @@
     background-color: #00D8FF !important;
 }
 .h2, h2 {
-    font-size: 1.5rem;
+    font-size: 18px;
+    background-image: linear-gradient(to right, rgba(145,162,178), rgba(255,0,0,0));
+    padding: 10px;
 }
 .errorMsg {
     color: #FF0000;
@@ -10,4 +12,21 @@
 .srv-validation-message {
     color: #FF0000;
     font-size: 12px;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 0;
+}
+.card-text {
+    padding: 10px;
+    font-size: 14px;
+}
+.card-author {
+    text-align: center;
+}
+.card-footer {
+    text-align: center;
 }

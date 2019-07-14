@@ -20,22 +20,24 @@ class Home extends Component {
 		db.version(1).stores({
 			blogs: "++id,title,body,author,slugtitle"
 		});
-		const data = db.blogs.toCollection().count(function (count) {
-			return count;
+		db.blogs.toCollection().count((totaldata) => {
+			this.setState({
+				totalData: totaldata
+			});
 		});
-		const totalData = data._stackHolder.columnNumber;
-		if(parseInt(totalData) > 0) {
+	
+		if(parseInt(this.state.totalData) > 0) {
 			db.blogs.toArray((result) => {
 				this.setState({
 					isLoaded: false,
-					totalData: totalData,
+					totalData: this.state.totalData,
 					blogdata: result
 				});
 			});
 		} else {
 			this.setState({
 				isLoaded: false,
-				totalData: totalData,
+				totalData: this.state.totalData,
 				blogdata: PostData
 			});
 		}

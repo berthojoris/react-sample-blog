@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Dexie from "dexie";
+import PostData from "./../data/data.json";
 class PostDetail extends Component {
 
 	constructor (props) {
@@ -31,8 +32,18 @@ class PostDetail extends Component {
 
 		db.blogs.where('id').equals(payload).first((result) => {
 			if(_.isEmpty(result)) {
-				alert("Data Not Found");
-				this.props.history.push('/')
+				const findOneFromJson = _.find(PostData, {id: payload});
+				if(_.isEmpty(findOneFromJson)) {
+					alert("Data Not Found");
+					this.props.history.push('/')
+				} else {
+					this.setState({ 
+						id: payload,
+						title: findOneFromJson.title,
+						body: findOneFromJson.body,
+						author: findOneFromJson.author
+					});
+				}
 			} else {
 				this.setState({
 					id: result.id,
@@ -52,6 +63,7 @@ class PostDetail extends Component {
 						<div className="card-body">
 							<h2 className="card-title">{this.state.title}</h2>
 							<p className="card-text">{this.state.body}</p>
+							<p className="card-author">Author {this.state.author}</p>
 						</div>
 					</div>
 				</div>

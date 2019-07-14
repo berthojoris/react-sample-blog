@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import ButtonLink from "./../components/ButtonLink";
 
 export default class Blog extends Component {
     render() {
@@ -9,10 +9,10 @@ export default class Blog extends Component {
                 <div className="card h-100">
                     <div className="card-body"><h2 className="card-title">{title}</h2>
                     <p className="card-text">{body}</p>
-                    <span className="text-center">{author}</span>
+                    <p className="card-author">Author: {author}</p>
                     </div>
                     <div className="card-footer">
-                        <Link className="btn btn-primary btn-sm" to={detailpage}>Detail</Link>
+                        <ButtonLink linkTo={detailpage} text="Detail" typeSize="btn btn-success"/>
                     </div>
                 </div>
             </div>
