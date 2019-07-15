@@ -3,7 +3,7 @@
 }
 .h2, h2 {
     font-size: 18px;
-    background-image: linear-gradient(to right, rgba(145,162,178), rgba(255,0,0,0));
+    background-color: #5D6873;
     padding: 10px;
 }
 .errorMsg {
@@ -29,4 +29,7 @@
 }
 .card-footer {
     text-align: center;
+}
+.card-title {
+    color: #ffffff;
 }
