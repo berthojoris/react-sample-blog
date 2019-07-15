@@ -53,7 +53,7 @@ class Post extends Component {
 		return (
 			<div className="form-group">
 				<label className="control-label col-sm-2">{this.capitalizeFirstLetter(name)}</label>
-				<div className="col-sm-6">
+				<div className="col-sm-12">
 					<input className="form-control" type={type} name={name} value={this.state[name]} autoComplete="off" placeholder={ph} onChange={this.handleInputChange.bind(this)} onBlur={() => this.validator.showMessageFor(name)} />
 					{this.validator.message(name, value, rules)}
 				</div>
@@ -63,8 +63,8 @@ class Post extends Component {
 
 	render() {
 		return (
-			<div className="row">
-				<div className="col-md-12 mt-5">
+			<div className="row justify-content-center">
+				<div className="col-md-6 mt-5">
 					<div className="card h-100">
 						<div className="card-body">
 							<h2 className="card-title">Create Post</h2>
@@ -73,7 +73,7 @@ class Post extends Component {
 								{this.buildInputForm('title', '', 'required')}
 								<div className="form-group">
 									<label className="control-label col-sm-2">Body :</label>
-									<div className="col-sm-6">
+									<div className="col-sm-12">
 										<textarea className="form-control" name="body" id="body" placeholder="Enter Body" cols="30" rows="5" defaultValue={this.state.body} onChange={this.handleInputChange.bind(this)} onBlur={() => this.validator.showMessageFor('body')}></textarea>
 										{this.validator.message('body', this.state.body, 'required')}
 									</div>

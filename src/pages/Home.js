@@ -45,7 +45,7 @@ class Home extends Component {
 				});
 
 				if(parseInt(this.state.totalData) > 0) {
-					db.blogs.toArray((result) => {
+					db.blogs.orderBy("id").reverse().toArray((result) => {
 						this.setState({
 							isLoaded: false,
 							totalData: this.state.totalData,
